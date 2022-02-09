@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datastructures and Algorithms", "Datastructures and Algorithms\Datastructures and Algorithms.csproj", "{9C1DD03D-8003-4F86-A888-AFC3C663FAF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{B32AE18A-7D05-44EB-8447-A10BA2E97287}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9C1DD03D-8003-4F86-A888-AFC3C663FAF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C1DD03D-8003-4F86-A888-AFC3C663FAF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C1DD03D-8003-4F86-A888-AFC3C663FAF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C1DD03D-8003-4F86-A888-AFC3C663FAF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B32AE18A-7D05-44EB-8447-A10BA2E97287}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B32AE18A-7D05-44EB-8447-A10BA2E97287}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B32AE18A-7D05-44EB-8447-A10BA2E97287}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B32AE18A-7D05-44EB-8447-A10BA2E97287}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A9980438-5891-4A53-9830-87D66FFE16C0}
+	EndGlobalSection
+EndGlobal
