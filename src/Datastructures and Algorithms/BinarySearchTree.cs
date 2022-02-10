@@ -4,7 +4,11 @@ namespace Datastructures_and_Algorithms
 {
     public class BinarySearchTree<T> where T : IComparable<T>
     {
-        private class Node
+        /// <summary>
+        /// This class is only public for the sake of testing purposes.
+        /// In a deployment environment this class should be private.
+        /// </summary>
+        public class Node
         {
             public Node(T t)
             {
@@ -16,7 +20,11 @@ namespace Datastructures_and_Algorithms
             public Node Right { get; set; }
         }
 
-        private Node root;
+        /// <summary>
+        /// This field is only public for the sake of testing purposes.
+        /// In a deployment environment this class should be private.
+        /// </summary>
+        public Node root;
 
         public int Count;
 
@@ -157,33 +165,33 @@ namespace Datastructures_and_Algorithms
         // Recursive function
         private Node FindParent(T value, Node current)
         {
-            if (value.CompareTo(root.Data) == 0)
+            if (value.CompareTo(current.Data) == 0)
             {
                 return null;
             }
-            if (value.CompareTo(root.Data) < 0)
+            if (value.CompareTo(current.Data) < 0)
             {
-                if (root.Left is null)
+                if (current.Left is null)
                 {
                     return null;
-                } else if (root.Left.Data.CompareTo(value) == 0)
+                } else if (current.Left.Data.CompareTo(value) == 0)
                 {
-                    return root;
+                    return current;
                 } else
                 {
-                    return FindParent(value, root.Left);
+                    return FindParent(value, current.Left);
                 }
             } else
             {
-                if (root.Right is null)
+                if (current.Right is null)
                 {
                     return null;
-                } else if (root.Right.Data.CompareTo(value) == 0)
+                } else if (current.Right.Data.CompareTo(value) == 0)
                 {
-                    return root;
+                    return current;
                 } else
                 {
-                    return FindParent(value, root.Right);
+                    return FindParent(value, current.Right);
                 }
             }
         }
@@ -205,6 +213,44 @@ namespace Datastructures_and_Algorithms
             {
                 return FindNode(current.Right, value);
             }
+        }
+
+        private Node FindMin()
+        {
+            if (root.Left is null)
+            {
+                return root;
+            }
+            return FindMin(root.Left);
+        }
+
+        // Recursive function
+        private Node FindMin(Node current)
+        {
+            if (current.Left is null)
+            {
+                return current;
+            }
+            return FindMin(current.Left);
+        }
+
+        private Node FindMax()
+        {
+            if (root.Right is null)
+            {
+                return root;
+            }
+            return FindMax(root.Right);
+        }
+
+        // Recursive function
+        private Node FindMax(Node current)
+        {
+            if (current.Right is null)
+            {
+                return current;
+            }
+            return FindMax(current.Right);
         }
     }
 }

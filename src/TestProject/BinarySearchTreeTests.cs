@@ -9,7 +9,6 @@ namespace TestProject
     [TestClass]
     public class BinarySearchTreeTests
     {
-
         [TestMethod]
         public void InsertWithInteger()
         {
@@ -23,15 +22,35 @@ namespace TestProject
         [TestMethod]
         public void InsertWithMultipleIntegers()
         {
+            // Arrange
             BinarySearchTree<int> bst = new BinarySearchTree<int>();
 
+            // Act
+            bst.Insert(9);
             bst.Insert(7);
+            bst.Insert(15);
+            bst.Insert(5);
             bst.Insert(3);
-            bst.Insert(13);
+            bst.Insert(8);
 
+            // Assert that the numbers inserted exist in the tree
+            Assert.IsTrue(bst.Contains(9));
             Assert.IsTrue(bst.Contains(7));
+            Assert.IsTrue(bst.Contains(15));
             Assert.IsTrue(bst.Contains(3));
-            Assert.IsTrue(bst.Contains(13));
+            Assert.IsTrue(bst.Contains(5));
+            Assert.IsTrue(bst.Contains(8));
+
+            // Assert that the structure of the tree is proper
+            Assert.AreEqual(9, bst.root.Data);
+            Assert.AreEqual(15, bst.root.Right.Data);
+            Assert.AreEqual(7, bst.root.Left.Data);
+            Assert.AreEqual(8, bst.root.Left.Right.Data);
+            Assert.AreEqual(5, bst.root.Left.Left.Data);
+            Assert.AreEqual(3, bst.root.Left.Left.Left.Data);
+
+            // Assert that the count variable works as intended
+            Assert.AreEqual(6, bst.Count);
         }
 
         [TestMethod]
@@ -54,6 +73,32 @@ namespace TestProject
             Assert.IsFalse(bst.Contains(obj4));
         }
 
+        [TestMethod]
+        public void DeletionWithMultipleGenericTypesInTree()
+        {
+            // Arrange
+            var bst = new BinarySearchTree<IntegerTestObject>();
+
+            bst.Insert(new IntegerTestObject(13));
+            var objectToBeDeleted = new IntegerTestObject(7);
+            bst.Insert(objectToBeDeleted);
+            bst.Insert(new IntegerTestObject(9));
+            bst.Insert(new IntegerTestObject(11));
+            bst.Insert(new IntegerTestObject(8));
+            bst.Insert(new IntegerTestObject(15));
+            bst.Insert(new IntegerTestObject(5));
+            bst.Insert(new IntegerTestObject(6));
+            bst.Insert(new IntegerTestObject(4));
+
+            // Act
+            bst.Remove(objectToBeDeleted);
+
+            // Assert that the largest value in the left subtree of the object that was deleted has been promoted in its stead.
+            Assert.AreEqual(6, bst.root.Left.Data.Data);
+            Assert.AreEqual(5, bst.root.Left.Left.Data.Data);
+            Assert.AreEqual(9, bst.root.Left.Right.Data.Data);
+        }
+
         public class GenericTestObject : IComparable<GenericTestObject>
         {
             public Guid Data { get; }
@@ -71,6 +116,26 @@ namespace TestProject
             public override string ToString()
             {
                 return Data.ToString();
+            }
+        }
+
+        public class IntegerTestObject : IComparable<IntegerTestObject>
+        {
+            public int Data { get; }
+
+            public IntegerTestObject()
+            {
+                Data = new Random().Next(1, 1000);
+            }
+
+            public IntegerTestObject(int value)
+            {
+                Data = value;
+            }
+
+            public int CompareTo([AllowNull] IntegerTestObject other)
+            {
+                return Data.CompareTo(other.Data);
             }
         }
     }
