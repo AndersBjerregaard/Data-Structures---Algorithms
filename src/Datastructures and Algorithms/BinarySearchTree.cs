@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Datastructures_and_Algorithms
 {
@@ -18,6 +20,11 @@ namespace Datastructures_and_Algorithms
             public T Data { get; set; }
             public Node Left { get; set; }
             public Node Right { get; set; }
+
+            public override string ToString()
+            {
+                return Data.ToString();
+            }
         }
 
         /// <summary>
@@ -251,6 +258,99 @@ namespace Datastructures_and_Algorithms
                 return current;
             }
             return FindMax(current.Right);
+        }
+
+        public IEnumerable<T> PreorderTraversal()
+        {
+            return PreorderTraversal(root);
+        }
+
+        private IEnumerable<T> PreorderTraversal(Node current)
+        {
+            if (!(current is null))
+            {
+                yield return current.Data;
+                foreach (var node in PreorderTraversal(current.Left))
+                {
+                    yield return node;
+                }
+                foreach (var node in PreorderTraversal(current.Right))
+                {
+                    yield return node;
+                }
+            }
+        }
+
+        public IEnumerable<T> PostorderTraversal()
+        {
+            return PostorderTraversal(root);
+        }
+
+        private IEnumerable<T> PostorderTraversal(Node current)
+        {
+            if (!(current is null))
+            {
+                foreach (var node in PostorderTraversal(current.Left))
+                {
+                    yield return node;
+                }
+                foreach (var node in PostorderTraversal(current.Right))
+                {
+                    yield return node;
+                }
+                yield return current.Data;
+            }
+        }
+
+        public IEnumerable<T> InorderTraversal()
+        {
+            return InorderTraversal(root);
+        }
+
+        private IEnumerable<T> InorderTraversal(Node current)
+        {
+            if (!(current is null))
+            {
+                foreach (var node in InorderTraversal(current.Left))
+                {
+                    yield return node;
+                }
+                yield return current.Data;
+                foreach (var node in InorderTraversal(current.Right))
+                {
+                    yield return node;
+                }
+            }
+        }
+
+        public IEnumerable<T> BreadthFirstTraversal() // Also known as Level Order Traversal
+        {
+            return BreadthFirstTraversal(root);
+        }
+
+        private IEnumerable<T> BreadthFirstTraversal(Node current)
+        {
+            Queue<Node> queue = new Queue<Node>();
+
+            while (!(current is null))
+            {
+                yield return current.Data;
+                if (!(current.Left is null))
+                {
+                    queue.Enqueue(current.Left);
+                }
+                if (!(current.Right is null))
+                {
+                    queue.Enqueue(current.Right);
+                }
+                if (queue.Count != 0)
+                {
+                    current = queue.Dequeue();
+                } else
+                {
+                    current = null;
+                }
+            }
         }
     }
 }

@@ -99,6 +99,81 @@ namespace TestProject
             Assert.AreEqual(9, bst.root.Left.Right.Data.Data);
         }
 
+        [TestMethod]
+        public void PreorderTraversalTest()
+        {
+            // Arrange
+            var bst = new BinarySearchTree<IntegerTestObject>();
+
+            bst.Insert(new IntegerTestObject(23));
+            bst.Insert(new IntegerTestObject(31));
+            bst.Insert(new IntegerTestObject(14));
+            bst.Insert(new IntegerTestObject(17));
+            bst.Insert(new IntegerTestObject(7));
+            bst.Insert(new IntegerTestObject(9));
+
+            // Act
+            var collection = bst.PreorderTraversal();
+            string actual = "";
+            foreach (var item in collection)
+            {
+                actual += $"{item} ";
+            }
+
+            // Assert
+            Assert.AreEqual("23 14 7 9 17 31 ", actual);
+        }
+
+        [TestMethod]
+        public void PostorderTraversalTest()
+        {
+            // Arrange
+            var bst = new BinarySearchTree<IntegerTestObject>();
+
+            bst.Insert(new IntegerTestObject(23));
+            bst.Insert(new IntegerTestObject(31));
+            bst.Insert(new IntegerTestObject(14));
+            bst.Insert(new IntegerTestObject(17));
+            bst.Insert(new IntegerTestObject(7));
+            bst.Insert(new IntegerTestObject(9));
+
+            // Act
+            var collection = bst.PostorderTraversal();
+            string actual = "";
+            foreach (var item in collection)
+            {
+                actual += $"{item} ";
+            }
+
+            // Assert
+            Assert.AreEqual("9 7 17 14 31 23 ", actual);
+        }
+
+        [TestMethod]
+        public void BreadthFirstTraversalTest()
+        {
+            // Arrange
+            var bst = new BinarySearchTree<IntegerTestObject>();
+
+            bst.Insert(new IntegerTestObject(23));
+            bst.Insert(new IntegerTestObject(31));
+            bst.Insert(new IntegerTestObject(14));
+            bst.Insert(new IntegerTestObject(17));
+            bst.Insert(new IntegerTestObject(7));
+            bst.Insert(new IntegerTestObject(9));
+
+            // Act
+            var collection = bst.BreadthFirstTraversal();
+            string actual = "";
+            foreach (var item in collection)
+            {
+                actual += $"{item} ";
+            }
+
+            // Assert
+            Assert.AreEqual("23 14 31 7 17 9 ", actual);
+        }
+
         public class GenericTestObject : IComparable<GenericTestObject>
         {
             public Guid Data { get; }
@@ -136,6 +211,11 @@ namespace TestProject
             public int CompareTo([AllowNull] IntegerTestObject other)
             {
                 return Data.CompareTo(other.Data);
+            }
+
+            public override string ToString()
+            {
+                return $"{Data}";
             }
         }
     }
