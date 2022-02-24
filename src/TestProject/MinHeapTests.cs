@@ -191,5 +191,21 @@ namespace TestProject
             Assert.IsFalse(heap.FindIndex(new IntegerTestObject(1), out _));
             Assert.IsFalse(heap.FindIndex(new IntegerTestObject(101), out _));
         }
+
+        [TestMethod]
+        public void SmartTraversal() // This test is supposed to be debugged and observed, to see if the heap knows not to search for a low value like '10' further down the heap.
+        {
+            // Arrange
+            MinHeap<IntegerTestObject> heap = new MinHeap<IntegerTestObject>(8);
+
+            heap.Add(new IntegerTestObject(8));
+            heap.Add(new IntegerTestObject(19));
+            heap.Add(new IntegerTestObject(12));
+            heap.Add(new IntegerTestObject(23));
+            heap.Add(new IntegerTestObject(78));
+
+            // Act
+            heap.FindIndex(new IntegerTestObject(10), out _); // Debug this! The idea is that the heap doesn't need to check the children of the node '19'.
+        }
     }
 }
