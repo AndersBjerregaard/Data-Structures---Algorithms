@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Datastructures_and_Algorithms
 {
-    public class MinHeap<T> where T : IComparable<T>
+    public class MinHeap<T> where T : IEquatable<T>, IComparable<T>
     {
         private T[] _heap;
         private int _count = 0;
@@ -32,6 +33,7 @@ namespace Datastructures_and_Algorithms
 
         public void Add(T value)
         {
+            EnsureExtraCapacity();
             _heap[_count] = value;
             _count++;
             MinHeapify();
@@ -50,15 +52,16 @@ namespace Datastructures_and_Algorithms
             _heap[count] = default;
             _count--;
 
+            if (!HasLeftChild(index)) // If the node removed was a leaf node, then there's no need to sort the heap
+            {
+                return true;
+            }
+
             // Step 3
             while ((2 * index + 1) < _count && _heap[index].CompareTo(_heap[2 * index + 1]) > 0 || _heap[index].CompareTo(_heap[2 * index + 2]) > 0)
             {
-                if (_heap[2 * index + 1].CompareTo(default) == 0 || _heap[2 * index + 2].CompareTo(default) == 0)
-                {
-                    break;
-                }
                 // Promote the smallest key from subtree
-                if (_heap[2 * index + 1].CompareTo(_heap[2 * index + 2]) < 0)
+                if (_heap[2 * index + 1].CompareTo(_heap[2 * index + 2]) < 0 && ! (EqualityComparer<T>.Default.Equals(_heap[2 * index + 1], default)))
                 {
 
                     // Swap the two values
@@ -66,22 +69,26 @@ namespace Datastructures_and_Algorithms
                     _heap[2 * index + 1] = _heap[index];
                     _heap[index] = temp;
 
-                    if (!HasLeftChild(index * 2 + 1))
+                    if (!HasLeftChild(index * 2 + 1)) // If there are no more children, break
                         break;
                     // Update indexer to left child
                     index = index * 2 + 1;
                 }
-                else
+                else if ( ! (EqualityComparer<T>.Default.Equals(_heap[2 * index + 2], default)))
                 {
                     // Swap the two values
                     T temp = _heap[2 * index + 2];
                     _heap[2 * index + 2] = _heap[index];
                     _heap[index] = temp;
 
-                    if (!HasLeftChild(index * 2 + 2))
+                    if (!HasLeftChild(index * 2 + 2)) // If there are no more children, break
                         break;
                     // Update indexer to right child
                     index = index * 2 + 2;
+                }
+                else
+                {
+                    break;
                 }
             }
             return true;
@@ -119,7 +126,7 @@ namespace Datastructures_and_Algorithms
             return false;
         }
 
-        public void MinHeapify()
+        private void MinHeapify()
         {
             int index = _count - 1;
             while (index > 0 && _heap[index].CompareTo(_heap[(index - 1) / 2]) < 0) // (Index - 1) / 2 results in the parent of the node to the given index
@@ -130,6 +137,17 @@ namespace Datastructures_and_Algorithms
                 _heap[index] = temp;
                 // Update indexer
                 index = (index - 1) / 2;
+            }
+        }
+
+        private void EnsureExtraCapacity()
+        {
+            if (_count == _size)
+            {
+                T[] destinationArray = new T[_size * 2];
+                Array.Copy(_heap, destinationArray, _size);
+                _heap = destinationArray;
+                _size *= 2;
             }
         }
 

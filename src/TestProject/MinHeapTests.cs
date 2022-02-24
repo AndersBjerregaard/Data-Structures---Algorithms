@@ -99,22 +99,97 @@ namespace TestProject
         }
 
         [TestMethod]
+        public void AddMoreElementsThanInitialArraySize()
+        {
+            // Arrange
+            MinHeap<int> heap = new MinHeap<int>(8);
+
+            Random random = new Random();
+
+            for (int i = 0; i < 8; i++)
+            {
+                heap.Add(random.Next(1, 100));
+            }
+
+            // Act & Assert
+            try
+            {
+                heap.Add(42);
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod]
         public void DeletionWithIntegers()
         {
             // Arrange
             MinHeap<int> heap = new MinHeap<int>(8);
 
-            heap.Add(3);
-            heap.Add(9);
-            heap.Add(12);
-            heap.Add(7);
+            heap.Add(10);
+            heap.Add(15);
+            heap.Add(20);
+            heap.Add(17);
+
+            // Act
+            heap.Remove(10);
+
+            // Assert
+            Assert.AreEqual("15,17,20,0,0,0,0,0", heap.ToString());
+        }
+
+        [TestMethod]
+        public void DeletionWithManyIntegers()
+        {
+            // Arrange
+            MinHeap<int> heap = new MinHeap<int>(8);
+
+            Random random = new Random();
+
             heap.Add(1);
+
+            for (int i = 0; i < 20; i++)
+            {
+                heap.Add(random.Next(2, 100));
+            }
+
+            heap.Add(101);
 
             // Act
             heap.Remove(1);
+            heap.Remove(101);
 
             // Assert
-            Assert.AreEqual("3,7,12,9,0,0,0,0", heap.ToString());
+            Assert.IsFalse(heap.FindIndex(1, out _));
+            Assert.IsFalse(heap.FindIndex(101, out _));
+        }
+
+        [TestMethod]
+        public void DeleteWithGenericTypes()
+        {
+            // Arrange
+            MinHeap<IntegerTestObject> heap = new MinHeap<IntegerTestObject>(8);
+
+            Random random = new Random();
+
+            heap.Add(new IntegerTestObject(1));
+
+            for (int i = 0; i < 20; i++)
+            {
+                heap.Add(new IntegerTestObject(random.Next(2, 100)));
+            }
+
+            heap.Add(new IntegerTestObject(101));
+
+            // Act
+            heap.Remove(new IntegerTestObject(1));
+            heap.Remove(new IntegerTestObject(101));
+
+            // Assert
+            Assert.IsFalse(heap.FindIndex(new IntegerTestObject(1), out _));
+            Assert.IsFalse(heap.FindIndex(new IntegerTestObject(101), out _));
         }
     }
 }

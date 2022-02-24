@@ -194,7 +194,7 @@ namespace TestProject
             }
         }
 
-        public class IntegerTestObject : IComparable<IntegerTestObject>
+        public class IntegerTestObject : IEquatable<IntegerTestObject>, IComparable<IntegerTestObject>
         {
             public int Data { get; }
 
@@ -210,13 +210,48 @@ namespace TestProject
 
             public int CompareTo([AllowNull] IntegerTestObject other)
             {
+                if (other is null)
+                    return -1;
+
                 return Data.CompareTo(other.Data);
+            }
+
+            public override bool Equals(object obj)
+            {
+                //Check for null and compare run-time types.
+                if ((obj == null) || ! this.GetType().Equals(obj.GetType()))
+                {
+                    return false;
+                }
+                else
+                {
+                    return Data == (obj as IntegerTestObject).Data;
+                }
+            }
+
+            public bool Equals([AllowNull] IntegerTestObject other)
+            {
+                // Check for null
+                if (other is null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return Data == other.Data;
+                }
+            }
+
+            public override int GetHashCode()
+            {
+                return Data;
             }
 
             public override string ToString()
             {
                 return $"{Data}";
             }
+
         }
     }
 }
