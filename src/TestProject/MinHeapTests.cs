@@ -123,6 +123,29 @@ namespace TestProject
         }
 
         [TestMethod]
+        public void CheckHeapOrderAfterInsertion()
+        {
+            // Arrange
+            MinHeap<IntegerTestObject> heap = new MinHeap<IntegerTestObject>(8);
+
+            // Act
+            heap.Add(new IntegerTestObject(10));
+            heap.Add(new IntegerTestObject(23));
+            heap.Add(new IntegerTestObject(17));
+            heap.Add(new IntegerTestObject(19));
+            heap.Add(new IntegerTestObject(21));
+            heap.Add(new IntegerTestObject(5));
+
+            // Assert
+            Assert.AreEqual(5, heap[0].Data);
+            Assert.AreEqual(19, heap[1].Data);
+            Assert.AreEqual(10, heap[2].Data);
+            Assert.AreEqual(23, heap[3].Data);
+            Assert.AreEqual(21, heap[4].Data);
+            Assert.AreEqual(17, heap[5].Data);
+        }
+
+        [TestMethod]
         public void DeletionWithIntegers()
         {
             // Arrange

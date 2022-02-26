@@ -69,7 +69,7 @@ namespace Datastructures_and_Algorithms
                     _heap[2 * index + 1] = _heap[index];
                     _heap[index] = temp;
 
-                    if (!HasLeftChild(index * 2 + 1)) // If there are no more children, break
+                    if (!HasLeftChild(index * 2 + 1)) // If there are no more children, break. The reason for this check is, the while loops conditioning attempts to check a null reference
                         break;
                     // Update indexer to left child
                     index = index * 2 + 1;
@@ -81,7 +81,7 @@ namespace Datastructures_and_Algorithms
                     _heap[2 * index + 2] = _heap[index];
                     _heap[index] = temp;
 
-                    if (!HasLeftChild(index * 2 + 2)) // If there are no more children, break
+                    if (!HasLeftChild(index * 2 + 2)) // If there are no more children, break. The reason for this check is, the while loops conditioning attempts to check a null reference
                         break;
                     // Update indexer to right child
                     index = index * 2 + 2;

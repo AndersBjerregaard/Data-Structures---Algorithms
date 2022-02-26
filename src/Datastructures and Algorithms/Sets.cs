@@ -49,6 +49,7 @@ namespace Datastructures_and_Algorithms
             return union;
         }
 
+        // The intersection algorithm has a runtime of O(n) where n is the number of items in the smaller of the two sets. Just like the union algorithm, a linear runtime can only be attained when operation on a set with O(1) insertion.
         public Set<T> Intersection(Set<T> set1, Set<T> set2)
         {
             if (set1 is null || set2 is null)
