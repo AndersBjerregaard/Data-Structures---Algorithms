@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using static TestProject.BinarySearchTreeTests;
 
 namespace TestProject
 {
@@ -47,6 +48,28 @@ namespace TestProject
 
             // Assert
             Assert.AreEqual(1000001, integerHashMap.Get("fortytwo"));
+        }
+
+        [TestMethod]
+        public void HashMapWithGenericTypes()
+        {
+            // Arrange
+            HashMap<GenericTestObject> hashMap = new HashMap<GenericTestObject>(10);
+
+            Random random = new Random();
+
+            // Act
+            for (int i = 0; i < 1000; i++)
+            {
+                hashMap.Put(random.Next(1, 1000).ToString(), new GenericTestObject());
+            }
+
+            var assertObject = new GenericTestObject();
+
+            hashMap.Put("key", assertObject);
+
+            // Assert
+            Assert.AreEqual(assertObject.Data, hashMap.Get("key").Data);
         }
     }
 }

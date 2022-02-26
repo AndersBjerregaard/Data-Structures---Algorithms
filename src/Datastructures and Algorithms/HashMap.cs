@@ -59,10 +59,17 @@ namespace Datastructures_and_Algorithms
         private int Hash(string key)
         {
             int result = 0;
+            int count = 0;
 
             foreach (var item in key)
             {
                 result += item.GetHashCode();
+                count++;
+                if (count == 5)
+                {
+                    result /= 5;
+                    count = 0;
+                }
             }
 
             return result;
