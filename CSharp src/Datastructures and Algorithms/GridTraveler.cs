@@ -27,13 +27,9 @@ namespace Datastructures_and_Algorithms
         public static int Travel(int m, int n)
         {
             // There is only one way to get from start to finish in a 1 by 1 grid. Which is to say, nothing.
-            if (m == 1 && n == 1)
-            {
-                Debug.WriteLine(1);
-                return 1;
-            }
+            if (m == 1 && n == 1) return 1;
             // Having either 0 rows or columns, there essentially isn't a grid to traverse.
-            if (m == 0 || n == 1) return 0;
+            if (m == 0 || n == 0) return 0;
 
             // Recurse through the method, branching both 'down' and 'right', if none of the above base cases were met.
             return Travel(m - 1, n) + Travel(m, n - 1);
