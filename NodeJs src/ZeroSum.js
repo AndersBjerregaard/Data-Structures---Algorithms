@@ -14,17 +14,32 @@
 // Output: false
 // Explanation: The subarray with zero-sum doesn't exist.
 
-const zeroSum = (numbers, remainder = null) => {
-    if (remainder !== null) {
-        if (remainder === 0) return true;
-    };
+// First solution. This could only calculate a subarray starting from index 0.
+// const zeroSum = (numbers, remainder = null) => {
+//     if (remainder !== null) {
+//         if (remainder === 0) return true;
+//     };
     
-    for (let num of numbers) {
-        if (remainder !== null) {
-            if (remainder + num === 0) return true;
-            remainder += num;
-        } else {
-            remainder = num;
+//     for (let num of numbers) {
+//         if (remainder !== null) {
+//             if (remainder + num === 0) return true;
+//             remainder += num;
+//         } else {
+//             remainder = num;
+//         }
+//     }
+
+//     return false;
+// }
+
+// Second solution
+const zeroSum = (numbers) => {
+    for (let i = 0; i < numbers.length; i++) {
+        let remainder = 0;
+        for (let k = 0; (i + k) < numbers.length; k++) {
+            const element = numbers[i + k];
+            if (remainder + element === 0) return true;
+            remainder += element;
         }
     }
 
@@ -34,3 +49,4 @@ const zeroSum = (numbers, remainder = null) => {
 // Tests
 console.log(zeroSum([3, 4, -7, 3, 1, 3, 1, -4, -2, -2])) // true
 console.log(zeroSum([4, -7, 1, 4, -1])) // false
+console.log(zeroSum([6, -7, 3, 4])) // true
