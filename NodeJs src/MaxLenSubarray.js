@@ -4,7 +4,6 @@
 // the solution should return any one of the maximum length subarray.
 
 const maxLenSubarray = (numbers, target, index = 0) => {
-    
     let largestSubArray = [];
 
     let currentValue = 0;
@@ -22,14 +21,21 @@ const maxLenSubarray = (numbers, target, index = 0) => {
     }
 
     if (index < numbers.length) {
-        if (largestSubArray.length < subArray.length)
-            largestSubArray = maxLenSubarray(numbers, target, index + 1)
+        let recursiveSubArray = maxLenSubarray(numbers, target, index + 1)
+        if (largestSubArray.length < recursiveSubArray.length) {
+            largestSubArray = recursiveSubArray;
+        }
     }
 
     return largestSubArray;
 }
 
+// Complexity
+// Time: O(n*m^2)
+// Space: O(m^3)
+
 // Tests
-// console.log(maxLenSubarray([5, 6, -5, 5, 3, 5, 3, -2, 0], 8)) // [-5, 5, 3, 5]
+console.log(maxLenSubarray([5, 6, -5, 5, 3, 5, 3, -2, 0], 8)) // [-5, 5, 3, 5]
 // Explanation: The subarrays with sum 8 are [[-5, 5, 3, 5], [3, 5], [5, 3]]. The longest subarray is [-5, 5, 3, 5] having length 4.
-console.log(maxLenSubarray([5, 3, -3, 3, -3, 3], 8))
+console.log(maxLenSubarray([5, 3, -3, 3, -3, 3], 8)) // [ 5, 3, -3, 3, -3, 3 ]
+console.log(maxLenSubarray([5, 6, -5, 5, 3, 5, 3, -2, 0, 5, 6, -5, 5, 3, 5, 3, -2, 0, 5, 6, -5, 5, 3, 5, 3, -2, 0, 5, 6, -5, 5, 3, 5, 3, -2, 0, 5, 6, -5, 5, 3, 5, 3, -2, 0], 10)) // []
