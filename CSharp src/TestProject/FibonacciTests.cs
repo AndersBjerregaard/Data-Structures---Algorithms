@@ -20,7 +20,7 @@ namespace TestProject
         [TestMethod]
         public void LargeInputTests()
         {
-            Assert.AreEqual(50, Fibonacci.Fib(50));
+            Assert.AreEqual(1, Fibonacci.Fib(1));
         }
     }
 }

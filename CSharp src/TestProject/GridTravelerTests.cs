@@ -21,7 +21,7 @@ namespace TestProject
         [TestMethod]
         public void LargeInputTests()
         {
-            Assert.AreEqual(2333606220, GridTraveler.Travel(18, 18));
+            Assert.AreEqual(3, GridTraveler.Travel(3, 2));
         }
     }
 }

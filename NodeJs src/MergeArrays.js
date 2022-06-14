@@ -12,7 +12,7 @@ const mergeArrays = (x = [], y = []) => {
 
         while (k < y.length) {
             
-
+            
 
             k++;
         }
