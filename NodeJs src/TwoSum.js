@@ -27,13 +27,33 @@ var twoSum = function(nums, target) {
             }
         }
     }
+    return [];
+};
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSumMap = function(nums, target) {
+    const map = {}
+    for (let i = 0; i < nums.length; i++) {
+        const x = nums[i];
+        const complement = target - x;
+        if (map[complement] !== undefined) {
+            return [map[complement], i]
+        } else {
+            map[x] = i;
+        }
+    }
+    return [];
 };
 
 // Tests
 
 var test = require('unit.js');
 
-describe('TwoSum.js tests', function(){
+describe('TwoSum.js brute-force tests', function(){
     it('test_00', function(){
         const input = [2,7,11,15];
         const target = 9;
@@ -55,6 +75,32 @@ describe('TwoSum.js tests', function(){
         const target = 6;
         const expected = [0,1];
         const actual = twoSum(input, target);
+        test.assert(actual, expected, `Expected: ${expected}, Actual: ${actual}`);
+    });
+});
+
+describe('TwoSum.js optimized tests', function(){
+    it('test_00', function(){
+        const input = [2,7,11,15];
+        const target = 9;
+        const expected = [0,1];
+        const actual = twoSumMap(input, target);
+        test.assert(actual, expected, `Expected: ${expected}, Actual: ${actual}`);
+    });
+
+    it('test_01', function(){
+        const input = [3,2,4];
+        const target = 6;
+        const expected = [1,2];
+        const actual = twoSumMap(input, target);
+        test.assert(actual, expected, `Expected: ${expected}, Actual: ${actual}`);
+    });
+
+    it('test_02', function(){
+        const input = [3,3];
+        const target = 6;
+        const expected = [0,1];
+        const actual = twoSumMap(input, target);
         test.assert(actual, expected, `Expected: ${expected}, Actual: ${actual}`);
     });
 });
