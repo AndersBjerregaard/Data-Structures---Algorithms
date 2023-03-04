@@ -10,7 +10,15 @@
  * @return {boolean}
  */
 var isPalindrome = function(x) {
-    return false;
+    xArray = String(x)
+        .split('')
+        .map(Number);
+    yArray = String(x)
+        .split('')
+        .map(Number);
+    yArray.reverse();
+    console.log(`original array: ${xArray}, reversed Array: ${yArray}`);
+    return xArray.toString() == yArray.toString();
 };
 
 // Tests
@@ -19,12 +27,12 @@ var test = require('unit.js');
 var assert = test.assert;
 describe('IsPalindrome.js tests', function(){
     it('test_00', function(){
-        assert(isPalindrome(121));
+        assert.equal(isPalindrome(121), true);
     });
     it('test_01', function(){
-        assert(!isPalindrome(-121));
+        assert.equal(isPalindrome(-121), false);
     });
     it('test_02', function(){
-        assert(!isPalindrome(10));
+        assert.equal(isPalindrome(10), false);
     });
 });
