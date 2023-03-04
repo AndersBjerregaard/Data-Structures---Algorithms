@@ -17,7 +17,6 @@ var isPalindrome = function(x) {
         .split('')
         .map(Number);
     yArray.reverse();
-    console.log(`original array: ${xArray}, reversed Array: ${yArray}`);
     return xArray.toString() == yArray.toString();
 };
 
