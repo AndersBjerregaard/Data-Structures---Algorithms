@@ -25,8 +25,12 @@ var isPalindrome = function(x) {
  * @return {boolean}
  */
 // https://stackoverflow.com/questions/14879691/get-number-of-digits-with-javascript/28203456#28203456
+// https://stackoverflow.com/questions/13955738/javascript-get-the-second-digit-from-a-number
 var isPalindromeOpt = function(x) {
-    
+    var numDigits = Math.max(Math.floor(Math.log10(Math.abs(x))), 0) + 1;
+    function getDigit(number, n) {
+        return Math.floor((number / Math.pow(10, n - 1)) % 10);
+    }
 };
 
 // Tests
