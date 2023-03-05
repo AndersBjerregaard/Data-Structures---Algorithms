@@ -20,6 +20,15 @@ var isPalindrome = function(x) {
     return xArray.toString() == yArray.toString();
 };
 
+/**
+ * @param {number} x
+ * @return {boolean}
+ */
+// https://stackoverflow.com/questions/14879691/get-number-of-digits-with-javascript/28203456#28203456
+var isPalindromeOpt = function(x) {
+    
+};
+
 // Tests
 const { describe, it } = require('node:test');
 var test = require('unit.js');
@@ -33,5 +42,16 @@ describe('IsPalindrome.js tests', function(){
     });
     it('test_02', function(){
         assert.equal(isPalindrome(10), false);
+    });
+});
+describe('IsPalindrome.js opt tests', function(){
+    it('test_00', function(){
+        assert.equal(isPalindromeOpt(121), true);
+    });
+    it('test_01', function(){
+        assert.equal(isPalindromeOpt(-121), false);
+    });
+    it('test_02', function(){
+        assert.equal(isPalindromeOpt(10), false);
     });
 });
