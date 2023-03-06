@@ -83,6 +83,9 @@ describe('IsPalindrome.js tests', function(){
     it('test_05', function(){
         assert.equal(isPalindrome(123123), false);
     });
+    it('test_06', function(){
+        assert.equal(isPalindrome(2121), false);
+    });
 });
 describe('IsPalindrome.js opt tests', function(){
     it('test_00', function(){
@@ -102,5 +105,8 @@ describe('IsPalindrome.js opt tests', function(){
     });
     it('test_05', function(){
         assert.equal(isPalindromeOpt(123123), false);
+    });
+    it('test_06', function(){
+        assert.equal(isPalindromeOpt(2121), false);
     });
 });
