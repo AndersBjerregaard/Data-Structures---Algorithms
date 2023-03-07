@@ -38,27 +38,51 @@ var isPalindromeOpt = function(x) {
         for (let i = 1; i < numDigits + 1; i++) {
             var digit = Math.floor((x / Math.pow(10, i - 1)) % 10);
             if (i < halfLength) {
-                map[digit] = true;
+                if (map[digit] === undefined) map[digit] = [i];
+                else map[digit].push(i);
             } else if (i === halfLength) {
                 continue;
             }
             else {
                 if (map[digit] === undefined) return false;
+                else if (!(() => 
+                {
+                    map[digit].forEach(z => {
+                        if (z === i - halfLength) return true;
+                    });
+                    return false;
+                })
+                ) return false;
             }
         }
     } else {
         for (let i = 1; i < numDigits + 1; i++) {
             var digit = Math.floor((x / Math.pow(10, i - 1)) % 10);
             if (i <= halfLength) {
-                map[digit] = true;
+                if (map[digit] === undefined) map[digit] = [i];
+                else map[digit].push(i);
             }
             else {
                 if (map[digit] === undefined) return false;
+                else if (!arrayContains(map[digit], i-halfLength)) return false;
             }
         }
     }
     return true;
 };
+
+/**
+ * @param {Array} x
+ * @param {number} y
+ * @return {boolean}
+ */
+var arrayContains = function(x, y) {
+    for (let i = 0; i < x.length; i++) {
+        const z = x[i];
+        if (z === y) return true;
+    }
+    return false;
+}
 
 // Tests
 const { describe, it } = require('node:test');
