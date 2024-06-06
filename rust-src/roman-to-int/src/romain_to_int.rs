@@ -28,7 +28,7 @@ pub mod romain_to_int {
         ]);
         let ch = x.chars();
         let mut value = 0;
-        for c in ch {
+        for (i, c) in ch.enumerate() {
             let chv = letters.get(&c).unwrap();
             value += chv;
         }
