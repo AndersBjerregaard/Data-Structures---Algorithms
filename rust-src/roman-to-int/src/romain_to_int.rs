@@ -15,6 +15,7 @@
 pub mod romain_to_int {
     use std::collections::HashMap;
 
+     #[allow(dead_code)]
     pub fn romain_to_int(x: &str) -> u32 {
         let letters: HashMap<char, u32> = HashMap::from([
             ('I', 1),
