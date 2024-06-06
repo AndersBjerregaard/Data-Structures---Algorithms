@@ -15,22 +15,25 @@
 pub mod romain_to_int {
     use std::collections::HashMap;
 
-    lazy_static! {
-        static ref ROMAN_LETTERS: HashMap<&'static str, i32> = {
-        let mut m = HashMap::new();
-            m.insert("I", 1);
-            m.insert("V", 5);
-            m.insert("X", 10);
-            m.insert("L", 50);
-            m.insert("C", 100);
-            m.insert("D", 500);
-            m.insert("M", 1000);
-        };
+    pub fn romain_to_int(x: &str) -> u32 {
+        let letters: HashMap<char, u32> = HashMap::from([
+            ('I', 1),
+            ('V', 5),
+            ('X', 10),
+            ('L', 50),
+            ('C', 100),
+            ('D', 500),
+            ('M', 1000)
+        ]);
+        let ch = x.chars();
+        let mut value = 0;
+        for c in ch {
+            let chv = letters.get(&c).unwrap();
+            value += chv;
+        }
+        return value;
     }
 
-    pub fn romain_to_int(x: &str) -> u32 {
-        unimplemented!()
-    }
 }
 
 #[cfg(test)]
