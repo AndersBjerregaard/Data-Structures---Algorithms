@@ -30,7 +30,7 @@ It is guaranteed that the list represents a number that does not have leading ze
 */
 
 fn main() {
-    println!("Hello, world!");
+    
 }
 
 pub mod add_two_numbers {
@@ -52,7 +52,55 @@ pub mod add_two_numbers {
     }
 
     pub fn add_two_numbers(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-      Some(Box::new(ListNode::new(0)))
+
+      let mut dummy_head: Option<Box<ListNode>> = Some(Box::new(ListNode { val: 0, next: None }));
+      let mut current: &mut Option<Box<ListNode>> = &mut dummy_head;
+
+      let mut carry: i32 = 0;
+
+      let mut n1: Option<Box<ListNode>> = l1.clone();
+      let mut n2: Option<Box<ListNode>> = l2.clone();
+
+      while n1.is_some() || n2.is_some() || carry != 0 {
+
+        let mut sum: i32 = carry.clone();
+
+        if n1.is_some() {
+
+          let n1_value: Box<ListNode> = n1.unwrap();
+
+          sum += n1_value.val;
+
+          let temp: &Option<Box<ListNode>> = &n1_value.next;
+
+          n1 = temp.clone();
+
+        }
+
+        if n2.is_some() {
+
+          let n2_value: Box<ListNode> = n2.unwrap();
+
+          sum += n2_value.val;
+
+          let temp: &Option<Box<ListNode>> = &n2_value.next;
+
+          n2 = temp.clone();
+
+        }
+
+        carry = sum / 10;
+
+        current.as_mut().unwrap().next = Some(Box::new(ListNode { val: sum % 10, next: None }));
+
+        let temp: &mut Option<Box<ListNode>> = &mut current.as_mut().unwrap().next;
+
+        current = temp;
+
+      }
+
+      dummy_head.unwrap().next
+
     }
 
     #[test]
@@ -63,23 +111,22 @@ pub mod add_two_numbers {
 
       let mut result: Option<Box<ListNode>> = add_two_numbers(node1, node2);
 
-      let mut resultString = String::from("");
+      let mut result_string: String = String::from("");
 
       while result.is_some() {
-        let value = result.clone().unwrap();
+        let value: Box<ListNode> = result.clone().unwrap();
         
-        let innerValue = value.val;
+        let inner_value: i32 = value.val;
 
-        /*
-          let mut s = String::from("bar");
-          s.insert_str(0, "foo");
-          assert_eq!("foobar", s);
-        */
+        let inner_value_converted: String = inner_value.to_string();
 
-        let innerValueConverted = innerValue.to_string();
+        result_string.insert_str(result_string.len(), &inner_value_converted);
 
-        resultString.insert_str(resultString.len(), &innerValueConverted);
+        let next: Option<Box<ListNode>> = value.next;
 
+        result = next;
       }
+
+      assert_eq!("708", result_string);
     }
 }
