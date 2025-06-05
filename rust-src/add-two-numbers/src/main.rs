@@ -52,16 +52,34 @@ pub mod add_two_numbers {
     }
 
     pub fn add_two_numbers(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-        
+      Some(Box::new(ListNode::new(0)))
     }
 
-}
-
-#[cfg(test)]
-mod tests {
-    use crate::add_two_numbers;
     #[test]
     fn test1() {
-        let expected = String::from("708");
+      let node1: Option<Box<ListNode>> = Some(Box::new(ListNode { val: 2, next: Some(Box::new(ListNode { val: 4, next: Some(Box::new(ListNode { val: 3, next: None })) })) }));
+
+      let node2: Option<Box<ListNode>> = Some(Box::new(ListNode { val: 5, next: Some(Box::new(ListNode { val: 6, next: Some(Box::new(ListNode { val: 4, next: None })) })) }));
+
+      let mut result: Option<Box<ListNode>> = add_two_numbers(node1, node2);
+
+      let mut resultString = String::from("");
+
+      while result.is_some() {
+        let value = result.clone().unwrap();
+        
+        let innerValue = value.val;
+
+        /*
+          let mut s = String::from("bar");
+          s.insert_str(0, "foo");
+          assert_eq!("foobar", s);
+        */
+
+        let innerValueConverted = innerValue.to_string();
+
+        resultString.insert_str(resultString.len(), &innerValueConverted);
+
+      }
     }
 }
