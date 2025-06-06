@@ -129,4 +129,90 @@ pub mod add_two_numbers {
 
       assert_eq!("708", result_string);
     }
+
+    #[test]
+    fn test2() {
+      let node1: Option<Box<ListNode>> = Some(Box::new(ListNode { val: 0, next: None }));
+      let node2: Option<Box<ListNode>> = Some(Box::new(ListNode { val: 0, next: None }));
+
+      let mut result: Option<Box<ListNode>> = add_two_numbers(node1, node2);
+
+      let mut result_string: String = String::from("");
+
+      while result.is_some() {
+        let value: Box<ListNode> = result.clone().unwrap();
+
+        let inner_value: i32 = value.val;
+
+        let inner_value_converted: String = inner_value.to_string();
+
+        result_string.insert_str(result_string.len(), &inner_value_converted);
+
+        let next: Option<Box<ListNode>> = value.next;
+
+        result = next;
+      }
+
+      assert_eq!("0", result_string);
+    }
+
+    #[test]
+    fn test3() {
+      let node1: Option<Box<ListNode>> = Some(Box::new(ListNode { 
+        val: 9,
+        next: Some(Box::new(ListNode { 
+          val: 9, 
+          next: Some(Box::new(ListNode { 
+            val: 9, 
+            next: Some(Box::new(ListNode { 
+              val: 9, 
+              next: Some(Box::new(ListNode { 
+                val: 9, 
+                next: Some(Box::new(ListNode { 
+                  val: 9, 
+                  next: Some(Box::new(ListNode { 
+                    val: 9, 
+                    next: None 
+                  })) 
+                })) 
+              })) 
+            })) 
+          }))
+        }))
+      }));
+      let node2: Option<Box<ListNode>> = Some(Box::new(ListNode { 
+        val: 9,
+        next: Some(Box::new(ListNode { 
+          val: 9, 
+          next: Some(Box::new(ListNode { 
+            val: 9, 
+            next: Some(Box::new(ListNode { 
+              val: 9, 
+              next: None
+            })) 
+          }))
+        }))
+      }));
+
+      let mut result: Option<Box<ListNode>> = add_two_numbers(node1, node2);
+
+      let mut result_string: String = String::from("");
+
+      while result.is_some() {
+        let value: Box<ListNode> = result.clone().unwrap();
+
+        let inner_value: i32 = value.val;
+
+        let inner_value_converted: String = inner_value.to_string();
+
+        result_string.insert_str(result_string.len(), &inner_value_converted);
+
+        let next: Option<Box<ListNode>> = value.next;
+
+        result = next;
+      }
+
+      assert_eq!("89990001", result_string);
+    }
+
 }
