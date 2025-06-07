@@ -26,6 +26,72 @@ Constraints:
 s consists of English letters, digits, symbols and spaces.
 */
 
+use std::collections::HashMap;
+
 fn main() {
     println!("Hello, world!");
+}
+
+pub fn length_of_longest_substring(s: String) -> i32 {
+    let mut max: i32 = 0;
+    let mut characters: HashMap<char, i32> = HashMap::new();
+    let mut current: i32 = 0;
+    for (_i, c) in s.chars().enumerate() {
+        if characters.contains_key(&c) {
+            characters.clear();
+            current = 1;
+        } else {
+            current += 1;
+        }
+        characters.insert(c, 1);
+        if current > max {
+            max = current;
+        }
+    }
+    max
+}
+
+#[test]
+fn test1() {
+    let input: String = String::from("abcabcbb");
+
+    let result: i32 = length_of_longest_substring(input);
+
+    assert_eq!(result, 3);
+}
+
+#[test]
+fn test2() {
+    let input: String = String::from("bbbbb");
+
+    let result: i32 = length_of_longest_substring(input);
+
+    assert_eq!(result, 1);
+}
+
+#[test]
+fn test3() {
+    let input: String = String::from("pwwkew");
+
+    let result: i32 = length_of_longest_substring(input);
+
+    assert_eq!(result, 3);
+}
+
+#[test]
+fn test4() {
+    let input: String = String::from("aab");
+
+    let result: i32 = length_of_longest_substring(input);
+
+    assert_eq!(result, 2);
+}
+
+#[test]
+fn test5() {
+    let input: String = String::from("dvdf");
+
+    let result: i32 = length_of_longest_substring(input);
+
+    assert_eq!(result, 3);
 }
