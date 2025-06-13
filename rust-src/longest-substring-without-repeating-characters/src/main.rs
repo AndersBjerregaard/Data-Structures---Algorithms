@@ -26,7 +26,7 @@ Constraints:
 s consists of English letters, digits, symbols and spaces.
 */
 
-use std::collections::HashMap;
+use std::{collections::HashSet, iter::Skip, str::Chars};
 
 fn main() {
     println!("Hello, world!");
@@ -34,19 +34,26 @@ fn main() {
 
 pub fn length_of_longest_substring(s: String) -> i32 {
     let mut max: i32 = 0;
-    let mut characters: HashMap<char, i32> = HashMap::new();
-    let mut current: i32 = 0;
-    for (_i, c) in s.chars().enumerate() {
-        if characters.contains_key(&c) {
-            characters.clear();
-            current = 1;
-        } else {
-            current += 1;
+    let mut i: usize = 0;
+    while i < s.chars().count() {
+        let mut k: usize = 0;
+        let mut chars: Skip<Chars<'_>> = s.chars().skip(i);
+        let mut characters: HashSet<char> = HashSet::new();
+        let mut current = 0;
+        while k < s.chars().skip(i).count() {
+            let c: char = chars.next().unwrap();
+            if characters.contains(&c) {
+                break;
+            } else {
+                current += 1;
+            }
+            characters.insert(c);
+            if current > max {
+                max = current;
+            }
+            k += 1;
         }
-        characters.insert(c, 1);
-        if current > max {
-            max = current;
-        }
+        i += 1;
     }
     max
 }
@@ -94,4 +101,13 @@ fn test5() {
     let result: i32 = length_of_longest_substring(input);
 
     assert_eq!(result, 3);
+}
+
+#[test]
+fn test6() {
+    let input: String = String::from("abcdeafg");
+
+    let result: i32 = length_of_longest_substring(input);
+
+    assert_eq!(result, 7);
 }
