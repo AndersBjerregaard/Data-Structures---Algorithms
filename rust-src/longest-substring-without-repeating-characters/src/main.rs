@@ -58,6 +58,28 @@ pub fn length_of_longest_substring(s: String) -> i32 {
     max
 }
 
+pub fn length_of_longest_substring_optmimized(s: String) -> i32 {
+    let mut chars = s.chars().peekable();
+    let mut set = HashSet::new();
+    let mut max_len = 0;
+
+    let (mut start, mut end) = (0usize, 0usize);
+    let s_chars: Vec<char> = s.chars().collect();
+
+    while end < s_chars.len() {
+        if !set.contains(&s_chars[end]) {
+            set.insert(s_chars[end]);
+            end += 1;
+            max_len = max_len.max(end - start);
+        } else {
+            set.remove(&s_chars[start]);
+            start += 1;
+        }
+    }
+
+    max_len as i32
+}
+
 #[test]
 fn test1() {
     let input: String = String::from("abcabcbb");
