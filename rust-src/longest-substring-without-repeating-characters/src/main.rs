@@ -39,7 +39,7 @@ pub fn length_of_longest_substring(s: String) -> i32 {
         let mut k: usize = 0;
         let mut chars: Skip<Chars<'_>> = s.chars().skip(i);
         let mut characters: HashSet<char> = HashSet::new();
-        let mut current = 0;
+        let mut current: i32 = 0;
         while k < s.chars().skip(i).count() {
             let c: char = chars.next().unwrap();
             if characters.contains(&c) {
