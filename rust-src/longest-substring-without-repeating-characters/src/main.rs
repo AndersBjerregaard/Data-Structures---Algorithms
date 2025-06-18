@@ -59,9 +59,8 @@ pub fn length_of_longest_substring(s: String) -> i32 {
 }
 
 pub fn length_of_longest_substring_optmimized(s: String) -> i32 {
-    let mut chars = s.chars().peekable();
-    let mut set = HashSet::new();
-    let mut max_len = 0;
+    let mut set: HashSet<char> = HashSet::new();
+    let mut max_len: usize = 0;
 
     let (mut start, mut end) = (0usize, 0usize);
     let s_chars: Vec<char> = s.chars().collect();
@@ -130,6 +129,60 @@ fn test6() {
     let input: String = String::from("abcdeafg");
 
     let result: i32 = length_of_longest_substring(input);
+
+    assert_eq!(result, 7);
+}
+
+#[test]
+fn test1_optm() {
+    let input: String = String::from("abcabcbb");
+
+    let result: i32 = length_of_longest_substring_optmimized(input);
+
+    assert_eq!(result, 3);
+}
+
+#[test]
+fn test2_optm() {
+    let input: String = String::from("bbbbb");
+
+    let result: i32 = length_of_longest_substring_optmimized(input);
+
+    assert_eq!(result, 1);
+}
+
+#[test]
+fn test3_optm() {
+    let input: String = String::from("pwwkew");
+
+    let result: i32 = length_of_longest_substring_optmimized(input);
+
+    assert_eq!(result, 3);
+}
+
+#[test]
+fn test4_optm() {
+    let input: String = String::from("aab");
+
+    let result: i32 = length_of_longest_substring_optmimized(input);
+
+    assert_eq!(result, 2);
+}
+
+#[test]
+fn test5_optm() {
+    let input: String = String::from("dvdf");
+
+    let result: i32 = length_of_longest_substring_optmimized(input);
+
+    assert_eq!(result, 3);
+}
+
+#[test]
+fn test6_optm() {
+    let input: String = String::from("abcdeafg");
+
+    let result: i32 = length_of_longest_substring_optmimized(input);
 
     assert_eq!(result, 7);
 }
